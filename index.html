@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html>
-<голова>
-  > название<Базовая игра Snake HTML</title>
-  кодировка meta <="UTF-8">
-  <стиль>
-  тело,  html {
-    100% : высота;
-    0:  маржа;
+<head>
+  >title<Basic Snake HTML Game</title>
+  <meta <="UTF-8">
+  <style>
+  html, body {
+    100% :%;
+    0: 0;
   }
 
-  тело {
-    : черный фон;
-    : гибкий дисплей;
-    : выровнять-элементы по центру;
-    : оправдание-центр контента;
+  body {
+    ::;
+    ::;
+    :: center;
+    ::;
   }
-  холст {
-    1 пиксель : сплошная белая граница;
+  canvas {
+    1 : :px;
   }
   </style>
 </head>
-<тело>
-ширина холста  <="400" высота = "400" идентификатор = "game"></canvas>
-<скрипт>
-var  canvas = document.getElementById('игра');
+<body>
+<canvas  <="400" height = "400" id = "game"></canvas>
+<script>
+var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
-// ширина и высота холста, snake x & y и apple x & y должны быть кратны размеру сетки, чтобы обнаружение столкновений работало
-// (например, 16 * 25 = 400)
+// the canvas width & height, snake x & y, and the apple x & y, all need to be a multiples of the grid size in order for collision detection to work
+// (e.g. 16 * 25 = 400)
 var grid = 16;
-количество переменных   =  0;
+var   =  0;
 
 var snake = {
   x: 160,
   y: 160,
 
-  // скорость змеи. перемещает на одну длину сетки каждый кадр в направлении x или y
-  dx: сетка,
+  // snake velocity. moves one grid length every frame in either the x or y direction
+  dx: grid,
   dy: 0,
 
-  // отслеживайте все сетки, которые занимает тело змеи
-  ячейки: [],
+  // keep track of all grids the snake body occupies
+  cells: [],
 
-  // длина змеи. растет, когда ест яблоко
-  Максимальное количество ячеек: 4
+  // length of the snake. grows when eating an apple
+  maxCells: 4
 };
 var apple = {
   x: 320,
   y: 320
 };
 
-// получить случайные целые числа в определенном диапазоне
+// get random whole numbers in a specific range
 // @see https://stackoverflow.com/a/1527820/2124254
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -82,9 +82,9 @@ function loop() {
 
   // wrap snake position vertically on edge of screen
   if (snake.y < 0) {
-    змея.y = canvas.height - сетка;
+    snake.y = canvas.height - grid;
   }
-  иначе , если (snake.y >= canvas.height) {
+  else if (snake.y >= canvas.height) {
     snake.y = 0;
   }
 
