@@ -1,60 +1,38 @@
-public VkBridgeController bridge;
-    public void SendCustom()
-    {
-        bridge.Send("VKWebAppJoinGroup", new Dictionary<string, string> { { "group_id", "1" } }, ResultCustomSend);
-    }
-    public void ResultCustomSend(string json)
-    {
-        //результат метода VKWebAppJoinGroup, в JSON
-    }
-          public VkBridgeController bridge;
-    public void ShowAdsReward()
-    {
-        bridge.VKWebAppShowNativeAds(new VKWebAppShowNativeAdsStruct
-        {
-            ad_format = AdFormat.reward
-        }, AdsResult);
-        
-    }
-    public void AdsResult(VKWebAppShowNativeAdsResultStruct result)
-    {
-        //в этот метод получим результат просмотра рекламы
-        var adsIsShow = result.result;
-    }
-          public VkBridgeController bridge;
-    public const string KEY_RESULTS = "score";
-    public void SaveResults(string results)
-    {
-        //сохраняем 
-        bridge.VKWebAppStorageSet(KEY_RESULTS, results);
-    }
-    public void GetResults()
-    {
-        //получаем сохранёные данные
-        bridge.VKWebAppStorageGet(KEY_RESULTS, ResultStorageGet);
-    }
-    public void ResultStorageGet(string value)
-    {
-        //в этот метод получим сохранённые данные
-    }
-           public VkBridgeController bridge;
-   public void SubscriptionBox()
-   {
-       bridge.VKWebAppShowSubscriptionBox(new SubscriptionBoxParamsAction
-       {
-           item = "Монета",
-           subscriptionAction = SubscriptionBoxAction.create,
-           subscription_id = "1"
-       }, (bool isSubscribed) =>
-           {
-               if (isSubscribed)
-               {
-                   //подписался
-               }
-               else
-               {
-                   //закрыл окно
-               }
-           }
-       );
-   }
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>WebGL</title>
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <script>
+      vkBridge.send("VKWebAppInit", {});
+      function reklamma() {
+        console.log("340980934584305348509483495843058340958304580349580348504358");
+        vkBridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
+          .then((data) => {
+            if (data.result)
+              console.log('Реклама показана');
+            else
+              console.log('Ошибка при показе');
+          })
+        .catch((error) => { console.log(error); /* Ошибка */ });
+      }
+      let i = setInterval(reklamma, 100);
+      document.addEventListener('keydown', reklamma);
+      
+    </script>
+  </head>
+  
+  <style>
+        body {
+          background-color: #000000
+        }
+  </style>
+  <body>
+    <div class="webgl-content">
+      <div id="gameContainer" style="width: 1000px; height: 1600px"></div>
+      
+    </div>
+  </body>
+</html>
